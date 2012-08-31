@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+      <!--<link rel="stylesheet" href="lib/Smoothness/jquery.ui.all.css" />-->
+
+    <script type="text/javascript" src="lib/jquery/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery-ui.1.9-rc.1.min.js"></script>
+    <!--<script type="text/javascript" src="http://code.jquery.com/ui/1.9.0-beta.1/jquery-ui.min.js"></script>-->
+    <script type="text/javascript" src="lib/underscore-min.js"></script>
+    <script type="text/javascript" src="lib/backbone.js"></script>
+
+    <script type="text/javascript" src="lib/jquery.rdfquery.min.js"></script>
+
+    <script type="text/javascript" src="lib/vie/vie-latest.debug.js"></script>
+
+    <script type="text/javascript" src="lib/vie.entitypreview.js"></script>
+
+    <script>
+    $(document).ready(function(){
+        var vie = window.vie = new VIE();
+        vie.use(new vie.StanbolService({
+            url : "http://dev.iks-project.eu:8081",
+            proxyDisabled: true,
+            entityhub: {site: 'dbpedia'}
+        }));
+
+        $('.demo [resource]')
+        .entitypreview({
+            vie: vie
+        });
+    });
+    </script>
+    <body xmlns:sioc    = "http://rdfs.org/sioc/ns#"
+         xmlns:schema   = "http://www.schema.org/"
+         xmlns:enhancer = "http://fise.iks-project.eu/ontology/"
+         xmlns:dc       = "http://purl.org/dc/terms/">
+        <a href="https://github.com/szabyg/VIE.entitypreview"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+
+        <h2>VIE entitypreview widget</h2>
+        <p>
+            VIE entitypreview uses the VIE.find service method to make entitypreview suggestions.<br/>
+            The VIE.find method can query different backend or frontend data sources.<br/>
+            This demo goes to the default Apache Stanbol backend.
+        </p>
+        <h3>Demo</h3>
+        <span class="demo" style="background: fff;">
+            <a href="http://dbpedia.org/resource/Turkey" resource="http://dbpedia.org/resource/Turkey" rel="skos:related"
+               class="entity place Place acknowledged" aria-disabled="false">Turkey</a>, known officially as the Republic
+            of Turkey, is a Eurasian country that stretches across the <a href="http://dbpedia.org/resource/Museum_of_Anatolian_Civilizations"
+                                                                          resource="http://dbpedia.org/resource/Museum_of_Anatolian_Civilizations"
+                                                                          rel="skos:related" class="entity place Place acknowledged" aria-disabled="false">Anatolian</a>
+            peninsula in western <a href="http://dbpedia.org/resource/Asia" resource="http://dbpedia.org/resource/Asia"
+                                    rel="skos:related" class="entity place Place acknowledged" aria-disabled="false">Asia</a>
+            and Thrace in the Balkan region of southeastern <a href="http://dbpedia.org/resource/Europe"
+                                                               resource="http://dbpedia.org/resource/Europe" rel="skos:related"
+                                                               class="entity place Place acknowledged" aria-disabled="false">Europe</a>.
+            <a href="http://dbpedia.org/resource/Turkey" resource="http://dbpedia.org/resource/Turkey" rel="skos:related"
+               class="entity place Place acknowledged" aria-disabled="false">Turkey</a> is one of the six independent
+            Turkic states. Turkey is bordered by eight countries: <a href="http://dbpedia.org/resource/Bulgaria"
+                                                                     resource="http://dbpedia.org/resource/Bulgaria"
+                                                                     rel="skos:related" class="entity place Place acknowledged"
+                                                                     aria-disabled="false">Bulgaria</a> to the northwest;
+            <a href="http://dbpedia.org/resource/Greece" resource="http://dbpedia.org/resource/Greece" rel="skos:related"
+               class="entity place Place acknowledged" aria-disabled="false">Greece</a> to the west; <a
+                href="http://dbpedia.org/resource/Georgia_%28country%29" resource="http://dbpedia.org/resource/Georgia_%28country%29"
+                rel="skos:related" class="entity place Place acknowledged" aria-disabled="false">Georgia</a> to the northeast;
+            <a href="http://dbpedia.org/resource/Armenia" resource="http://dbpedia.org/resource/Armenia" rel="skos:related"
+               class="entity place Place acknowledged" aria-disabled="false">Armenia</a>, <a href="http://dbpedia.org/resource/Azerbaijan"
+                                                                                             resource="http://dbpedia.org/resource/Azerbaijan"
+                                                                                             rel="skos:related" class="entity place Place acknowledged"
+                                                                                             aria-disabled="false">Azerbaijan</a> and
+            <a href="http://dbpedia.org/resource/Iran" resource="http://dbpedia.org/resource/Iran" rel="skos:related"
+               class="entity place Place acknowledged" aria-disabled="false">Iran</a> to the east; and
+            <a href="http://dbpedia.org/resource/Iraq" resource="http://dbpedia.org/resource/Iraq" rel="skos:related"
+               class="entity place Place acknowledged" aria-disabled="false">Iraq</a> and <a href="http://dbpedia.org/resource/Syria"
+                                                                                             resource="http://dbpedia.org/resource/Syria"
+                                                                                             rel="skos:related" class="entity place Place acknowledged"
+                                                                                             aria-disabled="false">Syria</a> to the southeast.
+            The Mediterranean Sea and Cyprus are to the south; the Aegean Sea to the west; and the Black Sea is to the north.
+            The Sea of Marmara, the Bosphorus and the Dardanelles (which together form the Turkish
+            <a href="http://dbpedia.org/resource/Strait" resource="http://dbpedia.org/resource/Strait" rel="skos:related"
+               class="entity other acknowledged" title="">Straits</a>) demarcate the boundary between Eastern Thrace and
+            Anatolia; they also separate Europe and Asia. Turks began migrating into the area now called Turkey ("land of
+            the Turks") in the eleventh century.
+        </span>
+            <div>
+            <div>
+                <h4>selected:</h4>
+                <div id="results"></div>
+            </div>
+        </div>
+        <h3>Usage</h3>
+        <pre>
+var vie = new VIE();
+vie.use(new vie.StanbolService({
+    url : "http://dev.iks-project.eu:8081",
+    proxyDisabled: true
+}));
+
+$('.search')
+.entitypreview({
+    vie: vie,
+    select: function(e, ui){
+        console.log(ui);
+    }
+});
+        </pre>
+        <a href="docs/index.html">Documented source code</a>
+    </body>
+</html>
