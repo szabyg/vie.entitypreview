@@ -83,6 +83,9 @@
                class="entity other acknowledged" title="">Straits</a>) demarcate the boundary between Eastern Thrace and
             Anatolia; they also separate Europe and Asia. Turks began migrating into the area now called Turkey ("land of
             the Turks") in the eleventh century.
+            <a href="http://upload.wikimedia.org/wikipedia/commons/5/52/Kumlinge.jpg" resource="http://upload.wikimedia.org/wikipedia/commons/5/52/Kumlinge.jpg" rel="skos:related"
+               class="entity other acknowledged" title="">Testpicture</a>)
+
         </span>
             <div>
             <div>
@@ -98,12 +101,9 @@ vie.use(new vie.StanbolService({
     proxyDisabled: true
 }));
 
-$('.search')
+$('.demo [resource]')
 .entitypreview({
     vie: vie,
-    select: function(e, ui){
-        console.log(ui);
-    }
 });
         </pre>
         <a href="docs/index.html">Documented source code</a>

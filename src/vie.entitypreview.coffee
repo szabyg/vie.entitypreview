@@ -42,11 +42,14 @@ jQuery.widget "IKS.entitypreview",
         "schema:name"
         "foaf:name"
     ]
+    picSize: 150
+    width: 350
     # * Define Entity properties for finding the description
     descriptionProperties: [
       "rdfs:comment"
       "skos:note"
       "schema:description"
+      "rdfs:label"
       "skos:definition"
         property: "skos:broader"
         makeLabel: (propertyValueArr) ->
@@ -120,89 +123,10 @@ jQuery.widget "IKS.entitypreview",
         uri = widget.uri
         widget._createPreview uri, response
         "loading..."
-    ###
-      widget = @
-      @element
-      .autocomplete
-          # define where do suggestions come from
-          source: (req, resp) =>
-              widget._logger.info "req:", req
-              properties = _.flatten [
-                  widget.options.labelProperties
-                  widget.options.descriptionProperties
-                  widget.options.depictionProperties
-              ]
-              properties = _(properties).map (prop) ->
-                  if typeof prop is "object"
-                      prop.property
-                  else
-                      prop
-              # call VIE.find
-              # if @options.stanbolIncludeLocalSite TODO implement multiple find requests and result merging
-              widget.options.vie
-              .find({
-                  term: "#{req.term}#{if req.term.length > 3 then '*'  else ''}"
-                  field: widget.options.field
-                  properties: properties
-                  local: @options.stanbolIncludeLocalSite or false
-              })
-              .using(widget.options.services).execute()
-              # error handling
-              .fail (e) ->
-                  widget._logger.error "Something wrong happened at stanbol find:", e
-              .success (entityList, resp) ->
-                _.defer =>
-                  widget._logger.info "resp:", _(entityList).map (ent) ->
-                      ent.id
-                  limit = 10
-                  # remove descriptive entity
-                  # TODO move to VIE
-                  entityList = _(entityList).filter (ent) ->
-                      return false if ent.getSubject().replace(/^<|>$/g, "") is
-                        "http://www.iks-project.eu/ontology/rick/query/QueryResultSet"
-                      return true
-                  res = _(entityList.slice(0, limit)).map (entity) ->
-                      return {
-                          key: entity.getSubject().replace /^<|>$/g, ""
-                          label: "#{widget._getLabel entity} @ #{widget._sourceLabel entity.id}"
-                          value: widget._getLabel entity
-                          getUri: ->
-                            @key
-                      }
-                  resp res
-          # create tooltip on menu elements when menu opens
-          open: (e, ui) ->
-              widget._logger.info "autocomplete.open", e, ui
-              if widget.options.showTooltip
-                  $(this).data().autocomplete.menu.activeMenu
-                  .tooltip
-                      items: ".ui-menu-item"
-                      hide:
-                          effect: "hide"
-                          delay: 50
-                      show:
-                          effect: "show"
-                          delay: 50
-                      content: (response) ->
-                        # fallbacks for different jquery ui versions
-                        item = $( @ ).data()["item.autocomplete"] or $( @ ).data()["uiAutocompleteItem"] or $( @ ).data()["ui-autocomplete-item"]
-                        uri = item.getUri()
-                        widget._createPreview uri, response
-                        "loading..."
-          # An entity selected, annotate
-          select: (e, ui) =>
-            _.defer =>
-              @options.select e, ui
-              @_logger.info "autocomplete.select", e.target, ui
-              if widget.options.urifield
-                widget.options.urifield.val ui.item.key
-            true
-          appendTo: @menuContainer
-  ###
   _createPreview: (uri, response) ->
     success = (cacheEntity) =>
       html = ""
-      picSize = 100
+      picSize = @options.picSize
       depictionUrl = @_getDepiction cacheEntity, picSize
       if depictionUrl
         html += "<img style='float:left;padding: 5px;width: #{picSize}px' src='#{depictionUrl.substring 1, depictionUrl.length-1}'/>"
@@ -210,7 +134,8 @@ jQuery.widget "IKS.entitypreview",
       unless descr
         @_logger.warn "No description found for", cacheEntity
         descr = "No description found."
-      html += "<div style='padding 5px;width:250px;float:left;'><small>#{descr}</small></div>"
+      html += "<small>#{descr}</small>"
+      html = "<div style='padding 5px;width:#{@options.width}px;'>#{html}</div>"
       @_logger.info "tooltip for #{uri}: cacheEntry loaded", cacheEntity
       # workaround for a tooltip widget bug
       # setTimeout ->
@@ -237,6 +162,8 @@ jQuery.widget "IKS.entitypreview",
       window.navigator.language.split("-")[0]
 
   _getDepiction: (entity, picSize) ->
+    if ["gif","jpg"].indexOf(entity.getSubjectUri().slice(-3)) isnt -1
+      return entity.getSubject()
     preferredFields = @options.depictionProperties
     # field is the first property name with a value
     field = _(preferredFields).detect (field) ->
