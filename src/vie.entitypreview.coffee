@@ -123,6 +123,8 @@ jQuery.widget "IKS.entitypreview",
         uri = widget.uri
         widget._createPreview uri, response
         "loading..."
+  getPreviewHtml: (cb) ->
+      @_createPreview @uri, cb
   _createPreview: (uri, response) ->
     success = (cacheEntity) =>
       html = ""

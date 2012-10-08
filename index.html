@@ -105,6 +105,17 @@ $('.demo [resource]')
 .entitypreview({
     vie: vie,
 });
+
+In case you only need the preview HTML snippet, you can do this:
+
+jQuery('<div resource="http://dbpedia.org/resource/Paris"/>')
+.entitypreview({vie:vie})
+.entitypreview('getPreviewHtml',
+    function(html){
+        console.info('html', html);
+        // or whatever you like to do with it.
+    }
+);
         </pre>
         <a href="docs/index.html">Documented source code</a>
     </body>
