@@ -108,8 +108,11 @@ $('.demo [resource]')
 
 In case you only need the preview HTML snippet, you can do this:
 
-jQuery('&lt;div resource="http://dbpedia.org/resource/Paris"/&gt;')
-.entitypreview({vie:vie})
+jQuery('&lt;div/&gt;')
+.entitypreview({
+    vie: vie,
+    uri: "http://dbpedia.org/resource/Salzburg"
+})
 .entitypreview('getPreviewHtml',
     function(html){
         console.info('html', html);
