@@ -123,8 +123,11 @@ jQuery.widget "IKS.entitypreview",
         uri = widget.uri
         widget._createPreview uri, response
         "loading..."
+  # The getPreviewHtml method is for external call, it provides the HTML snippet for the 
+  # widget instance in form of the callback argument's only parameter. 
   getPreviewHtml: (cb) ->
       @_createPreview @uri, cb
+      return
   _createPreview: (uri, response) ->
     success = (cacheEntity) =>
       html = ""
