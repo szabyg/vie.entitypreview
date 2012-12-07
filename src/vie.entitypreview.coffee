@@ -107,10 +107,10 @@ jQuery.widget "IKS.entitypreview",
     @_instantiateTooltip()
 
   _destroy: ->
-      @menuContainer.remove()
+      @element.tooltip?('destroy')
   _instantiateTooltip: ->
     widget = @
-    @element.tooltip
+    @element.tooltip?
       items: "*"
       hide:
         effect: "hide"
