@@ -110,19 +110,20 @@ jQuery.widget "IKS.entitypreview",
       @element.tooltip?('destroy')
   _instantiateTooltip: ->
     widget = @
-    @element.tooltip?
-      items: "*"
-      hide:
-        effect: "hide"
-        delay: 50
-      show:
-        effect: "show"
-        delay: 50
-      content: (response) ->
-        # fallbacks for different jquery ui versions
-        uri = widget.uri
-        widget._createPreview uri, response
-        "loading..."
+    if @element.tooltip
+      @element.tooltip
+        items: "*"
+        hide:
+          effect: "hide"
+          delay: 50
+        show:
+          effect: "show"
+          delay: 50
+        content: (response) ->
+          # fallbacks for different jquery ui versions
+          uri = widget.uri
+          widget._createPreview uri, response
+          "loading..."
   # The getPreviewHtml method is for external call, it provides the HTML snippet for the 
   # widget instance in form of the callback argument's only parameter. 
   getPreviewHtml: (cb) ->

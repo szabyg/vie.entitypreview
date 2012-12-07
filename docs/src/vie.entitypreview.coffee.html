@@ -112,21 +112,22 @@ look for a fallback.</li>
     <span class="nx">@_instantiateTooltip</span><span class="p">()</span>
 
   <span class="nv">_destroy: </span><span class="o">-&gt;</span>
-      <span class="nx">@menuContainer</span><span class="p">.</span><span class="nx">remove</span><span class="p">()</span>
+      <span class="nx">@element</span><span class="p">.</span><span class="nx">tooltip</span><span class="o">?</span><span class="p">(</span><span class="s">&#39;destroy&#39;</span><span class="p">)</span>
   <span class="nv">_instantiateTooltip: </span><span class="o">-&gt;</span>
     <span class="nv">widget = </span><span class="nx">@</span>
-    <span class="nx">@element</span><span class="p">.</span><span class="nx">tooltip</span>
-      <span class="nv">items: </span><span class="s">&quot;*&quot;</span>
-      <span class="nv">hide:</span>
-        <span class="nv">effect: </span><span class="s">&quot;hide&quot;</span>
-        <span class="nv">delay: </span><span class="mi">50</span>
-      <span class="nv">show:</span>
-        <span class="nv">effect: </span><span class="s">&quot;show&quot;</span>
-        <span class="nv">delay: </span><span class="mi">50</span>
-      <span class="nv">content: </span><span class="nf">(response) -&gt;</span></pre></div></td></tr><tr id="section-14"><td class="docs"><div class="pilwrap"><a href="#section-14" class="pilcrow">&#182;</a></div><p>fallbacks for different jquery ui versions</p>
-</td><td class="code"><div class="highlight"><pre>        <span class="nv">uri = </span><span class="nx">widget</span><span class="p">.</span><span class="nx">uri</span>
-        <span class="nx">widget</span><span class="p">.</span><span class="nx">_createPreview</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">response</span>
-        <span class="s">&quot;loading...&quot;</span></pre></div></td></tr><tr id="section-15"><td class="docs"><div class="pilwrap"><a href="#section-15" class="pilcrow">&#182;</a></div><p>The getPreviewHtml method is for external call, it provides the HTML snippet for the 
+    <span class="k">if</span> <span class="nx">@element</span><span class="p">.</span><span class="nx">tooltip</span>
+      <span class="nx">@element</span><span class="p">.</span><span class="nx">tooltip</span>
+        <span class="nv">items: </span><span class="s">&quot;*&quot;</span>
+        <span class="nv">hide:</span>
+          <span class="nv">effect: </span><span class="s">&quot;hide&quot;</span>
+          <span class="nv">delay: </span><span class="mi">50</span>
+        <span class="nv">show:</span>
+          <span class="nv">effect: </span><span class="s">&quot;show&quot;</span>
+          <span class="nv">delay: </span><span class="mi">50</span>
+        <span class="nv">content: </span><span class="nf">(response) -&gt;</span></pre></div></td></tr><tr id="section-14"><td class="docs"><div class="pilwrap"><a href="#section-14" class="pilcrow">&#182;</a></div><p>fallbacks for different jquery ui versions</p>
+</td><td class="code"><div class="highlight"><pre>          <span class="nv">uri = </span><span class="nx">widget</span><span class="p">.</span><span class="nx">uri</span>
+          <span class="nx">widget</span><span class="p">.</span><span class="nx">_createPreview</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">response</span>
+          <span class="s">&quot;loading...&quot;</span></pre></div></td></tr><tr id="section-15"><td class="docs"><div class="pilwrap"><a href="#section-15" class="pilcrow">&#182;</a></div><p>The getPreviewHtml method is for external call, it provides the HTML snippet for the 
 widget instance in form of the callback argument's only parameter. </p>
 </td><td class="code"><div class="highlight"><pre>  <span class="nv">getPreviewHtml: </span><span class="nf">(cb) -&gt;</span>
       <span class="nx">@_createPreview</span> <span class="nx">@uri</span><span class="p">,</span> <span class="nx">cb</span>
@@ -187,4 +188,4 @@ setTimeout -></p>
     <span class="nv">preferredLanguages = </span><span class="p">[</span><span class="nx">@_getUserLang</span><span class="p">(),</span> <span class="nx">@options</span><span class="p">.</span><span class="nx">fallbackLanguage</span><span class="p">]</span>
     <span class="nx">VIE</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getPreferredLangForPreferredProperty</span> <span class="nx">entity</span><span class="p">,</span> <span class="nx">preferredFields</span><span class="p">,</span> <span class="nx">preferredLanguages</span>
 
-</pre></div></td></tr></tbody></table><div id="generated">generated Fri Dec 07 2012 14:52:12 GMT+0100 (CET)  </div></div></body></html>
+</pre></div></td></tr></tbody></table><div id="generated">generated Fri Dec 07 2012 16:23:35 GMT+0100 (CET)  </div></div></body></html>
