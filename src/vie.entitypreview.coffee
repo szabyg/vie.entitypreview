@@ -165,7 +165,10 @@ jQuery.widget "IKS.entitypreview",
       fail()
 
   _getUserLang: ->
+    if window.navigator.appName is 'Netscape' # chrome && firefox
       window.navigator.language.split("-")[0]
+    else
+      window.navigator.browserLanguage.split("-")[0]
 
   _getDepiction: (entity, picSize) ->
     if ["gif","jpg"].indexOf(entity.getSubjectUri().slice(-3)) isnt -1

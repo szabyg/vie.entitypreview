@@ -164,7 +164,10 @@ setTimeout -></p>
       <span class="nx">fail</span><span class="p">()</span>
 
   <span class="nv">_getUserLang: </span><span class="o">-&gt;</span>
+    <span class="k">if</span> <span class="nb">window</span><span class="p">.</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">appName</span> <span class="o">is</span> <span class="s">&#39;Netscape&#39;</span> <span class="c1"># chrome &amp;&amp; firefox</span>
       <span class="nb">window</span><span class="p">.</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">language</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">browserLanguage</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
   <span class="nv">_getDepiction: </span><span class="nf">(entity, picSize) -&gt;</span>
     <span class="k">if</span> <span class="p">[</span><span class="s">&quot;gif&quot;</span><span class="p">,</span><span class="s">&quot;jpg&quot;</span><span class="p">].</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">entity</span><span class="p">.</span><span class="nx">getSubjectUri</span><span class="p">().</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">))</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span>
@@ -188,4 +191,4 @@ setTimeout -></p>
     <span class="nv">preferredLanguages = </span><span class="p">[</span><span class="nx">@_getUserLang</span><span class="p">(),</span> <span class="nx">@options</span><span class="p">.</span><span class="nx">fallbackLanguage</span><span class="p">]</span>
     <span class="nx">VIE</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getPreferredLangForPreferredProperty</span> <span class="nx">entity</span><span class="p">,</span> <span class="nx">preferredFields</span><span class="p">,</span> <span class="nx">preferredLanguages</span>
 
-</pre></div></td></tr></tbody></table><div id="generated">generated Fri Dec 07 2012 16:23:35 GMT+0100 (CET)  </div></div></body></html>
+</pre></div></td></tr></tbody></table><div id="generated">generated Mon Jan 14 2013 10:19:14 GMT+0100 (CET)  </div></div></body></html>
