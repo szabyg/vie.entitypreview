@@ -1,5 +1,7 @@
-# VIE entitypreview uses the VIE.load service method to show a preview for an entity.
-# This demo goes to the default Apache Stanbol backend.
+###   VIE entitypreview uses the VIE.load service method to show a preview for an entity.
+#     Author: Szaby Gruenwald, Salzburg Research (2012-2013)
+#     This file may be freely distributed under the MIT license
+###
 #
 #     var vie = new VIE();
 #     vie.use(new vie.StanbolService({
