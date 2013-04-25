@@ -156,15 +156,17 @@ jQuery.widget "IKS.entitypreview",
     jQuery(".ui-tooltip").remove()
     # @options.cache.get uri, @, success, fail
     entity = @options.vie.entities.get uri
-    @options.vie.load(entity: uri).using(@options.services).execute()
-    .success (res) ->
-      loadedEntity = _.detect res, (entity) ->
-        entity.fromReference(entity.getSubject()) is uri
-      success loadedEntity
-    if entity
-      success entity
+    unless entity
+      @options.vie.load(entity: uri).using(@options.services).execute()
+      .success (res) ->
+        loadedEntity = _.detect res, (entity) ->
+          entity.fromReference(entity.getSubject()) is uri
+        success loadedEntity
+      .fail fail
     else
-      fail()
+      unless entity.get('@type')
+        fail('Entity has no type')
+      success entity
 
   _getUserLang: ->
     if window.navigator.appName is 'Netscape' # chrome && firefox

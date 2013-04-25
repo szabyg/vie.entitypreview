@@ -158,15 +158,17 @@ setTimeout -></p>
       <span class="nx">response</span> <span class="s">&quot;error loading entity for </span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">jQuery</span><span class="p">(</span><span class="s">&quot;.ui-tooltip&quot;</span><span class="p">).</span><span class="nx">remove</span><span class="p">()</span></pre></div></td></tr><tr id="section-18"><td class="docs"><div class="pilwrap"><a href="#section-18" class="pilcrow">&#182;</a></div><p>@options.cache.get uri, @, success, fail</p>
 </td><td class="code"><div class="highlight"><pre>    <span class="nv">entity = </span><span class="nx">@options</span><span class="p">.</span><span class="nx">vie</span><span class="p">.</span><span class="nx">entities</span><span class="p">.</span><span class="nx">get</span> <span class="nx">uri</span>
-    <span class="nx">@options</span><span class="p">.</span><span class="nx">vie</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nv">entity: </span><span class="nx">uri</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="nx">@options</span><span class="p">.</span><span class="nx">services</span><span class="p">).</span><span class="nx">execute</span><span class="p">()</span>
-    <span class="p">.</span><span class="nx">success</span> <span class="nf">(res) -&gt;</span>
-      <span class="nv">loadedEntity = </span><span class="nx">_</span><span class="p">.</span><span class="nx">detect</span> <span class="nx">res</span><span class="p">,</span> <span class="nf">(entity) -&gt;</span>
-        <span class="nx">entity</span><span class="p">.</span><span class="nx">fromReference</span><span class="p">(</span><span class="nx">entity</span><span class="p">.</span><span class="nx">getSubject</span><span class="p">())</span> <span class="o">is</span> <span class="nx">uri</span>
-      <span class="nx">success</span> <span class="nx">loadedEntity</span>
-    <span class="k">if</span> <span class="nx">entity</span>
-      <span class="nx">success</span> <span class="nx">entity</span>
+    <span class="nx">unless</span> <span class="nx">entity</span>
+      <span class="nx">@options</span><span class="p">.</span><span class="nx">vie</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nv">entity: </span><span class="nx">uri</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="nx">@options</span><span class="p">.</span><span class="nx">services</span><span class="p">).</span><span class="nx">execute</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">success</span> <span class="nf">(res) -&gt;</span>
+        <span class="nv">loadedEntity = </span><span class="nx">_</span><span class="p">.</span><span class="nx">detect</span> <span class="nx">res</span><span class="p">,</span> <span class="nf">(entity) -&gt;</span>
+          <span class="nx">entity</span><span class="p">.</span><span class="nx">fromReference</span><span class="p">(</span><span class="nx">entity</span><span class="p">.</span><span class="nx">getSubject</span><span class="p">())</span> <span class="o">is</span> <span class="nx">uri</span>
+        <span class="nx">success</span> <span class="nx">loadedEntity</span>
+      <span class="p">.</span><span class="nx">fail</span> <span class="nx">fail</span>
     <span class="k">else</span>
-      <span class="nx">fail</span><span class="p">()</span>
+      <span class="nx">unless</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;@type&#39;</span><span class="p">)</span>
+        <span class="nx">fail</span><span class="p">(</span><span class="s">&#39;Entity has no type&#39;</span><span class="p">)</span>
+      <span class="nx">success</span> <span class="nx">entity</span>
 
   <span class="nv">_getUserLang: </span><span class="o">-&gt;</span>
     <span class="k">if</span> <span class="nb">window</span><span class="p">.</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">appName</span> <span class="o">is</span> <span class="s">&#39;Netscape&#39;</span> <span class="c1"># chrome &amp;&amp; firefox</span>
@@ -196,4 +198,4 @@ setTimeout -></p>
     <span class="nv">preferredLanguages = </span><span class="p">[</span><span class="nx">@_getUserLang</span><span class="p">(),</span> <span class="nx">@options</span><span class="p">.</span><span class="nx">fallbackLanguage</span><span class="p">]</span>
     <span class="nx">VIE</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getPreferredLangForPreferredProperty</span> <span class="nx">entity</span><span class="p">,</span> <span class="nx">preferredFields</span><span class="p">,</span> <span class="nx">preferredLanguages</span>
 
-</pre></div></td></tr></tbody></table><div id="generated">generated Fri Mar 22 2013 14:39:53 GMT+0100 (CET)  </div></div></body></html>
+</pre></div></td></tr></tbody></table><div id="generated">generated Thu Apr 25 2013 09:41:50 GMT+0200 (CEST)  </div></div></body></html>
