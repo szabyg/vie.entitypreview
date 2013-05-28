@@ -185,7 +185,10 @@ jQuery.widget "IKS.entitypreview",
     if field && fieldValue = _([entity.get field]).flatten()
       depictionUrl = _(fieldValue).detect (uri) ->
           true if uri.indexOf("thumb") isnt -1
-      .replace /[0-9]{2..3}px/, "#{picSize}px"
+      if depictionUrl
+        depictionUrl = depictionUrl.replace /[0-9]{2..3}px/, "#{picSize}px"
+      else
+        depictionUrl = fieldValue[0]
       depictionUrl
 
   _getLabel: (entity) ->
